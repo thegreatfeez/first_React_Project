@@ -8,19 +8,72 @@ import {
   faInstagram,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-import feezImage from './assets/feez.PNG';
+import feezImage from './assets/feez.PNG'
+
+
+function SocialLink({ href, children, className = "", variant = "icon" }) {
+  const baseClasses = "transition-colors cursor-pointer";
+  const variantClasses = {
+    icon: "hover:text-blue-400",
+    button: "bg-blue-500 text-white font-medium px-4 py-2 rounded flex items-center gap-2 hover:bg-blue-600"
+  };
+  
+  return (
+    <a 
+      href={href} 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className={`${baseClasses} ${variantClasses[variant]} ${className}`}
+    >
+      {children}
+    </a>
+  );
+}
+
+
+const socialConfig = {
+  twitter: {
+    url: "https://x.com/thegreatfeez",
+    icon: faTwitter,
+    xIcon: faXTwitter,
+    label: "X",
+    hoverColor: "hover:text-blue-400"
+  },
+  facebook: {
+    url: "https://facebook.com/thegreatfeez",
+    icon: faFacebook,
+    label: "Facebook",
+    hoverColor: "hover:text-blue-600"
+  },
+  instagram: {
+    url: "https://instagram.com/thegreatfeez",
+    icon: faInstagram,
+    label: "Instagram",
+    hoverColor: "hover:text-pink-400"
+  },
+  github: {
+    url: "https://github.com/thegreatfeez",
+    icon: faGithub,
+    label: "GitHub",
+    hoverColor: "hover:text-gray-400"
+  },
+  email: {
+    url: "mailto:thegreatfeez@example.com",
+    icon: faEnvelope,
+    label: "Email",
+    hoverColor: "hover:bg-gray-100"
+  }
+};
 
 function ProfileImage() {
   return (
     <img
-      src={feezImage}      
+      src={feezImage}
       alt="Thegreatfeez"
       className="rounded-t-xl w-full object-cover"
     />
   );
 }
-
-
 
 function ProfileMain() {
   return (
@@ -30,14 +83,15 @@ function ProfileMain() {
       <p className="text-sm text-gray-400 mt-1">thegreatfeez.web3</p>
 
       <div className="flex justify-center gap-4 mt-4">
-        <button className="bg-white text-gray-800 font-medium px-4 py-2 rounded flex items-center gap-2">
-          <FontAwesomeIcon icon={faEnvelope} />
-          Email
-        </button>
-        <button className="bg-blue-500 text-white font-medium px-4 py-2 rounded flex items-center gap-2">
-          <FontAwesomeIcon icon={faXTwitter} />
-          X
-        </button>
+        <SocialLink href={socialConfig.email.url} variant="button" className="bg-gray-800 hover:bg-gray-500">
+          <FontAwesomeIcon icon={socialConfig.email.icon} />
+          {socialConfig.email.label}
+        </SocialLink>
+        
+        <SocialLink href={socialConfig.twitter.url} variant="button">
+          <FontAwesomeIcon icon={socialConfig.twitter.xIcon} />
+          {socialConfig.twitter.label}
+        </SocialLink>
       </div>
 
       <div className="text-left mt-6 space-y-4">
@@ -58,20 +112,17 @@ function ProfileMain() {
   );
 }
 
-
 function ProfileFooter() {
   return (
     <footer className="bg-gray-800 text-white py-4 flex justify-center gap-6 rounded-b-xl">
-      <FontAwesomeIcon icon={faTwitter} className="text-xl cursor-pointer" />
-      <FontAwesomeIcon icon={faFacebook} className="text-xl cursor-pointer" />
-      <FontAwesomeIcon icon={faInstagram} className="text-xl cursor-pointer" />
-      <FontAwesomeIcon icon={faGithub} className="text-xl cursor-pointer" />
+      {Object.entries(socialConfig).slice(0, 4).map(([key, config]) => (
+        <SocialLink key={key} href={config.url} className={config.hoverColor}>
+          <FontAwesomeIcon icon={config.icon} className="text-xl" />
+        </SocialLink>
+      ))}
     </footer>
   );
 }
-
-
-
 
 function App() {
   return (
@@ -85,6 +136,4 @@ function App() {
   );
 }
 
-
 export default App;
-
