@@ -8,12 +8,12 @@ import {
   faInstagram,
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
-
+import feezImage from './assets/feez.PNG';
 
 function ProfileImage() {
   return (
     <img
-      src="src/assets/feez.PNG"
+      src={feezImage}      
       alt="Thegreatfeez"
       className="rounded-t-xl w-full object-cover"
     />
@@ -21,7 +21,7 @@ function ProfileImage() {
 }
 
 
-// ProfileMain.jsx
+
 function ProfileMain() {
   return (
     <div className="bg-gray-900 text-white p-6 text-center">
@@ -58,7 +58,7 @@ function ProfileMain() {
   );
 }
 
-// ProfileFooter.jsx
+
 function ProfileFooter() {
   return (
     <footer className="bg-gray-800 text-white py-4 flex justify-center gap-6 rounded-b-xl">
